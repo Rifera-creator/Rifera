@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block common junk/bot paths
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /*.json$
+Disallow: /*.xml$
+Allow: /sitemap.xml
+
+# Sitemap
+Sitemap: https://rifera.org/sitemap.xml
