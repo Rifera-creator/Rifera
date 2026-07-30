@@ -1,0 +1,13 @@
+/* TEAM */
+Product, Design & Development: @rifera_io
+Site: https://rifera.org/
+Twitter: @rifera_io
+
+/* THANKS */
+Built on macOS. Recorded with RiferaScreen.
+
+/* SITE */
+Last update: 2026-07-30
+Language: English
+Standards: HTML5, CSS3, Schema.org
+Components: Vanilla JS, Google Fonts
