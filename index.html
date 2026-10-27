@@ -200,16 +200,16 @@
           <div class="x-hero__copy">
             <p class="x-eyebrow">Gen-00 · Pixel cursors · BNB Chain · ERC-721 · 24×24</p>
             <h1 id="hero-title">First <em>Take.</em></h1>
-            <p class="x-lede">Tiny pixel cursors that record everything. Mint for 0.0002 BNB, mint for 0.002 BNB, or fuse three into one rarer take. Your AI agent mints for you with one on-chain call.</p>
-            <p class="x-count">— / 3,333 <small>MINTED</small></p>
+            <p class="x-lede">Tiny pixel cursors that record everything. Mint for 0.0002 BNB, mint for 0.002 BNB, with fusion coming in Phase 2. Your AI agent mints for you with one on-chain call.</p>
+            <p class="x-count"><span id="lv-total">—</span> / 120 <small>MINTED</small></p>
             <div class="x-row">
               <a class="x-btn x-btn--rec" href="#mint">Claim your First Take</a>
-              <a class="x-btn" href="#fusion">Fuse my Takes</a>
+              <a class="x-btn" href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">View contract ↗</a>
             </div>
             <div class="x-stats">
-              <div class="x-stat"><span>CHEAP MINT</span><span>— / 1,111</span></div>
-              <div class="x-stat"><span>PAID 0.002 BNB</span><span>— / 2,222</span></div>
-              <div class="x-stat"><span>FUSIONS</span><span>—</span></div>
+              <div class="x-stat"><span>CHEAP MINT</span><span><span id="lv-free">—</span> / 40</span></div>
+              <div class="x-stat"><span>PAID 0.002 BNB</span><span><span id="lv-paid">—</span> / 80</span></div>
+              <div class="x-stat"><span>MINT</span><span id="lv-open">—</span></div>
             </div>
           </div>
           <figure class="x-plate">
@@ -226,10 +226,10 @@
           </div>
           <div class="x-grid3">
             <article class="x-card">
-              <h3><span>Cheap mint</span><span class="x-tag" style="background: var(--x-mint)">1,111</span></h3>
+              <h3><span>Cheap mint</span><span class="x-tag" style="background: var(--x-mint)">40</span></h3>
               <p class="x-price">0.0002 BNB<small>per NFT + gas</small></p>
               <dl class="x-kv">
-                <div><dt>Supply</dt><dd>1,111</dd></div>
+                <div><dt>Supply</dt><dd>40</dd></div>
                 <div><dt>Max / wallet</dt><dd>7</dd></div>
                 <div><dt>Function</dt><dd class="x-code">mintFree(uint256 quantity)</dd></div>
               </dl>
@@ -240,14 +240,14 @@
                 <span class="x-total"></span>
               </div>
               <button class="x-btn x-btn--rec x-btn--full" type="button" data-copy="free">COPY PROMPT</button>
-              <p class="x-soon">Contract: <b>coming soon</b></p>
+              <p class="x-soon">Contract: <a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f</a></p>
             </article>
 
             <article class="x-card">
-              <h3><span>0.002 BNB mint</span><span class="x-tag" style="background: var(--x-sky)">2,222</span></h3>
+              <h3><span>0.002 BNB mint</span><span class="x-tag" style="background: var(--x-sky)">80</span></h3>
               <p class="x-price">0.002 <span style="font-size: max(12px, 0.6em)">BNB</span><small>0.002 BNB per NFT, fixed price. Overpay refunded automatically.</small></p>
               <dl class="x-kv">
-                <div><dt>Supply</dt><dd>2,222</dd></div>
+                <div><dt>Supply</dt><dd>80</dd></div>
                 <div><dt>Max / wallet</dt><dd>20</dd></div>
                 <div><dt>Function</dt><dd class="x-code">mintPaid(uint256 quantity)</dd></div>
                 <div><dt>Value</dt><dd class="x-code">0.002 BNB × N</dd></div>
@@ -259,11 +259,11 @@
                 <span class="x-total"></span>
               </div>
               <button class="x-btn x-btn--rec x-btn--full" type="button" data-copy="paid">COPY PROMPT</button>
-              <p class="x-soon">Contract: <b>coming soon</b></p>
+              <p class="x-soon">Contract: <a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f</a></p>
             </article>
 
             <article class="x-card" id="fusion" style="scroll-margin-top: 110px">
-              <h3><span>Fusion</span><span class="x-tag" style="background: var(--x-lilac)">3 → 1 · gas only</span></h3>
+              <h3><span>Fusion</span><span class="x-tag" style="background: var(--x-lilac)">Phase 2</span></h3>
               <div>
                 <div class="x-fuse x-px" aria-label="Three Rare takes become one Epic take" role="img">
                   <img src="tier2.png" alt="" /><img src="tier2.png" alt="" /><img src="tier2.png" alt="" />
@@ -272,7 +272,7 @@
                 </div>
               </div>
               <p class="x-fuse-cap">3 × RARE → 1 × EPIC</p>
-              <p class="x-text">Burn 3 First Takes of the same tier, get 1 new one tier up: Common → Uncommon → Rare → Epic → Legendary.</p>
+              <p class="x-text">Coming in Phase 2: burn 3 First Takes of the same tier, get 1 new one tier up. Not live in the current contract.</p>
               <dl class="x-kv">
                 <div><dt>Function</dt><dd class="x-code">fuse(uint256[3] ids)</dd></div>
               </dl>
@@ -281,8 +281,8 @@
                 <input class="x-input" id="fid2" inputmode="numeric" placeholder="ID 2" aria-label="Token ID 2" />
                 <input class="x-input" id="fid3" inputmode="numeric" placeholder="ID 3" aria-label="Token ID 3" />
               </div>
-              <button class="x-btn x-btn--rec x-btn--full" type="button" data-copy="fuse">COPY PROMPT</button>
-              <p class="x-soon">Contract: <b>coming soon</b></p>
+              <button class="x-btn x-btn--full" type="button" disabled>PHASE 2</button>
+              <p class="x-soon">Contract: <a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f</a></p>
             </article>
           </div>
         </section>
@@ -305,16 +305,15 @@
                 </thead>
                 <tbody>
                   <tr><th scope="row">Network</th><td>BNB Chain (56)</td><td class="muted">Info</td></tr>
-                  <tr><th scope="row">Contract</th><td><span class="chip">Coming soon</span></td><td class="muted">Not deployed yet</td></tr>
+                  <tr><th scope="row">Contract</th><td><code>0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f</code></td><td class="muted"><a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">BscScan ↗</a></td></tr>
                   <tr><th scope="row"><code>mintFree(uint256)</code></th><td>value = 0.0002 BNB × N</td><td class="muted">Write</td></tr>
                   <tr><th scope="row"><code>mintPaid(uint256)</code></th><td>value = 0.002 BNB × N</td><td class="muted">Write</td></tr>
                   <tr><th scope="row"><code>priceFor(uint256)</code></th><td>BNB price for N mints</td><td class="muted">Read</td></tr>
-                  <tr><th scope="row"><code>fuse(uint256[3])</code></th><td>value 0</td><td class="muted">Write</td></tr>
-                  <tr><th scope="row"><code>tierOf(uint256)</code></th><td>0..4 (Common..Legendary)</td><td class="muted">Read</td></tr>
-                  <tr><th scope="row"><code>freeMinted()</code></th><td>Cheap mints so far</td><td class="muted">Read</td></tr>
+                                                      <tr><th scope="row"><code>freeMinted()</code></th><td>Cheap mints so far</td><td class="muted">Read</td></tr>
                   <tr><th scope="row"><code>paidMinted()</code></th><td>0.002 BNB mints so far</td><td class="muted">Read</td></tr>
                   <tr><th scope="row"><code>totalMinted()</code></th><td>All mints so far</td><td class="muted">Read</td></tr>
-                  <tr><th scope="row"><code>fusions()</code></th><td>Fusions so far</td><td class="muted">Read</td></tr>
+                  <tr><th scope="row"><code>mintOpen()</code></th><td>true when mint is live</td><td class="muted">Read</td></tr>
+                  <tr><th scope="row"><code>freeLeftFor(address)</code> / <code>paidLeftFor(address)</code></th><td>Mints left for a wallet</td><td class="muted">Read</td></tr>
                   <tr><th scope="row">Creator fee</th><td>5% · EIP-2981 royalty</td><td class="muted">On-chain</td></tr>
                 </tbody>
               </table>
@@ -326,10 +325,10 @@
               <button class="x-btn x-btn--rec x-btn--full" type="submit">CHECK</button>
               <p class="x-msg" id="check-msg" aria-live="polite"></p>
               <div class="x-result">
-                <div><span>Free left</span><span>—</span></div>
-                <div><span>Paid left</span><span>—</span></div>
+                <div><span>Free left</span><span id="cw-free">—</span></div>
+                <div><span>Paid left</span><span id="cw-paid">—</span></div>
               </div>
-              <p class="x-soon">Live once the contract is deployed.</p>
+              <p class="x-soon">Read live from BNB Chain.</p>
             </form>
           </div>
         </section>
@@ -338,7 +337,7 @@
           <div class="x-head">
             <p class="x-eyebrow">No. 03 — Tiers</p>
             <h2 class="x-h2" id="tiers-title">The takes</h2>
-            <p class="x-lede">Tier is rolled on-chain at mint; fusion always gives the next tier.</p>
+            <p class="x-lede">120 hand-rolled takes: 72 Common, 30 Uncommon, 12 Rare, 5 Epic, 1 Legendary. Fusion comes in Phase 2.</p>
           </div>
           <div class="x-tiers">
             <article class="x-tier" style="--x-c: var(--text-primary)">
@@ -404,7 +403,7 @@
           <div class="x-faq">
             <details>
               <summary>How many?</summary>
-              <p>3,333: 1,111 at 0.0002 BNB and 2,222 at 0.002 BNB. Fusion burns 3 and mints 1, so supply shrinks.</p>
+              <p>120: 40 at 0.0002 BNB and 80 at 0.002 BNB.</p>
             </details>
             <details>
               <summary>Why no connect-wallet?</summary>
@@ -420,7 +419,7 @@
             </details>
             <details>
               <summary>Why did my mint fail?</summary>
-              <p>Usually one of three: the value sent was wrong, the per-wallet limit was reached, or the three takes in a fusion are not the same tier.</p>
+              <p>Usually one of three: the value sent was wrong, the per-wallet limit was reached, the column sold out, or mint is not open yet.</p>
             </details>
             <details>
               <summary>What's the link to RiferaScreen?</summary>
@@ -435,7 +434,7 @@
       </main>
 
       <footer class="x-foot">
-        <p>FIRST TAKE · BNB CHAIN · CREATOR FEE 5% · Contract: coming soon</p>
+        <p>FIRST TAKE · BNB CHAIN · CREATOR FEE 5% · Contract: <a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f</a></p>
         <nav aria-label="Links">
           <a href="https://x.com/RIFERAxz" target="_blank" rel="noopener">X</a>
           <a href="https://x.com/0xnathan_ai" target="_blank" rel="noopener">build by&nbsp;@0xnathan_ai</a>
@@ -446,7 +445,7 @@
     <script src="hark.js"></script>
     <script>
       (function () {
-        var CONTRACT = "[CONTRACT — coming soon]";
+        var CONTRACT = "0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f";
 
         /* timecode */
         var tc = document.getElementById("tc"), start = Date.now();
@@ -518,6 +517,31 @@
           });
         });
 
+
+        /* live chain reads */
+        var RPCS = ["https://bsc-dataseed1.bnbchain.org", "https://bsc-rpc.publicnode.com", "https://1rpc.io/bnb", "https://bsc-dataseed.bnbchain.org"];
+        function pad(h) { while (h.length < 64) h = "0" + h; return h; }
+        function hexNum(h) { return h && h !== "0x" ? parseInt(h, 16).toString() : "—"; }
+        function rpcCall(data, i) {
+          i = i || 0;
+          if (i >= RPCS.length) return Promise.reject(new Error("rpc"));
+          return fetch(RPCS[i], { method: "POST", headers: { "content-type": "application/json" },
+            body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_call", params: [{ to: CONTRACT, data: data }, "latest"] }) })
+            .then(function (r) { return r.json(); })
+            .then(function (j) { if (!j.result) throw new Error("no result"); return j.result; })
+            .catch(function () { return rpcCall(data, i + 1); });
+        }
+        function refreshLive() {
+          Promise.all([rpcCall("0xa2309ff8"), rpcCall("0xd10a1a2b"), rpcCall("0x2806b8fb"), rpcCall("0x24bbd049")]).then(function (r) {
+            document.getElementById("lv-total").textContent = hexNum(r[0]);
+            document.getElementById("lv-free").textContent = hexNum(r[1]);
+            document.getElementById("lv-paid").textContent = hexNum(r[2]);
+            document.getElementById("lv-open").textContent = parseInt(r[3], 16) ? "LIVE" : "SOON";
+          }).catch(function () {});
+        }
+        refreshLive();
+        setInterval(refreshLive, 30000);
+
         /* check wallet */
         var msg = document.getElementById("check-msg");
         document.getElementById("check").addEventListener("submit", function (e) {
@@ -529,7 +553,13 @@
             return;
           }
           msg.className = "x-msg";
-          msg.textContent = "Contract not deployed yet, so limits show —.";
+          msg.textContent = "Checking…";
+          var a = pad(v.slice(2).toLowerCase());
+          Promise.all([rpcCall("0x788d576c" + a), rpcCall("0x35a6818f" + a)]).then(function (r) {
+            document.getElementById("cw-free").textContent = hexNum(r[0]);
+            document.getElementById("cw-paid").textContent = hexNum(r[1]);
+            msg.textContent = "";
+          }).catch(function () { msg.className = "x-msg is-err"; msg.textContent = "Could not reach BNB Chain. Try again."; });
         });
 
         renderQty();
