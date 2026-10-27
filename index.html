@@ -79,6 +79,11 @@
       .x-btn:active { transform: translate(2px, 2px); box-shadow: none; }
       .x-btn--rec { background: var(--x-rec); border-color: var(--x-rec); color: var(--x-rec-ink); box-shadow: 3px 3px 0 #7a1a15; }
       .x-btn--full { width: 100%; }
+      .x-btn--full + .x-msg + .x-btn--full { margin-top: 8px; }
+      .x-latest { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
+      .x-latest figure { margin: 0; text-align: center; font: 400 11px/1.4 var(--x-pixel); }
+      .x-latest img { width: 100%; image-rendering: pixelated; border-radius: 6px; display: block; margin-bottom: 6px; }
+
       .x-row { display: flex; flex-wrap: wrap; gap: 12px; }
       .x-code { font: 400 var(--size-small)/1.4 var(--x-mono); color: var(--x-mint); overflow-wrap: anywhere; }
       .x-soon { font: 400 var(--size-caption)/1.4 var(--x-mono); color: var(--text-secondary); }
@@ -222,7 +227,7 @@
           <div class="x-head">
             <p class="x-eyebrow">No. 01 — Mint</p>
             <h2 class="x-h2" id="mint-title">No wallet connect. Your agent mints.</h2>
-            <p class="x-lede">Copy a prompt into Binance Agentic Wallet, or any agent that can send a BNB Chain transaction.</p>
+            <p class="x-lede">Mint straight from your wallet, or copy a prompt into Binance Agentic Wallet or any agent that can send a BNB Chain transaction.</p>
           </div>
           <div class="x-grid3">
             <article class="x-card">
@@ -239,7 +244,9 @@
                 <button type="button" data-step="1" aria-label="More">+</button>
                 <span class="x-total"></span>
               </div>
-              <button class="x-btn x-btn--rec x-btn--full" type="button" data-copy="free">COPY PROMPT</button>
+              <button class="x-btn x-btn--rec x-btn--full" type="button" data-mint="free">MINT WITH WALLET</button>
+              <p class="x-msg" data-mint-msg="free" aria-live="polite"></p>
+              <button class="x-btn x-btn--full" type="button" data-copy="free">COPY AGENT PROMPT</button>
               <p class="x-soon">Contract: <a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f</a></p>
             </article>
 
@@ -258,7 +265,9 @@
                 <button type="button" data-step="1" aria-label="More">+</button>
                 <span class="x-total"></span>
               </div>
-              <button class="x-btn x-btn--rec x-btn--full" type="button" data-copy="paid">COPY PROMPT</button>
+              <button class="x-btn x-btn--rec x-btn--full" type="button" data-mint="paid">MINT WITH WALLET</button>
+              <p class="x-msg" data-mint-msg="paid" aria-live="polite"></p>
+              <button class="x-btn x-btn--full" type="button" data-copy="paid">COPY AGENT PROMPT</button>
               <p class="x-soon">Contract: <a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f</a></p>
             </article>
 
@@ -376,10 +385,11 @@
             <p class="x-eyebrow">No. 04 — Live</p>
             <h2 class="x-h2" id="live-title">Latest mints</h2>
           </div>
-          <div class="x-empty">
+          <div class="x-empty" id="live-empty">
             <p>Be the first take.</p>
             <span class="x-rec">Waiting for mints</span>
           </div>
+          <div class="x-latest" id="live-grid" hidden></div>
         </section>
 
         <section class="x-sec" id="market" aria-labelledby="market-title">
@@ -388,10 +398,11 @@
           </div>
           <div class="x-card x-market">
             <div class="x-head">
-              <h2 class="x-h2" id="market-title">Opening soon.</h2>
-              <p class="x-text">First Take will trade on Element, BNB Chain, after mint. Creator fee 5% (EIP-2981 royalty, on-chain).</p>
+              <h2 class="x-h2" id="market-title">Open on Element.</h2>
+              <p class="x-text">First Take trades on Element, BNB Chain. Listings show up right after mint. Creator fee 5% (EIP-2981 royalty, on-chain).</p>
             </div>
-            <a class="x-btn" href="https://element.market/" target="_blank" rel="noopener">Element Market ↗</a>
+            <a class="x-btn x-btn--rec" href="https://element.market/assets/bsc/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f/1" target="_blank" rel="noopener">Trade on Element ↗</a>
+            <a class="x-btn" href="https://bscscan.com/token/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">BscScan ↗</a>
           </div>
         </section>
 
@@ -406,8 +417,8 @@
               <p>120: 40 at 0.0002 BNB and 80 at 0.002 BNB.</p>
             </details>
             <details>
-              <summary>Why no connect-wallet?</summary>
-              <p>Minting is agent-only. Copy a prompt or the manual parameters into an agent that can send a BNB Chain transaction.</p>
+              <summary>How do I mint?</summary>
+              <p>Tap MINT WITH WALLET (MetaMask, Trust, OKX or any BNB Chain wallet), or copy the agent prompt into an AI agent wallet.</p>
             </details>
             <details>
               <summary>What does the cheap mint cost?</summary>
@@ -534,6 +545,7 @@
         function refreshLive() {
           Promise.all([rpcCall("0xa2309ff8"), rpcCall("0xd10a1a2b"), rpcCall("0x2806b8fb"), rpcCall("0x24bbd049")]).then(function (r) {
             document.getElementById("lv-total").textContent = hexNum(r[0]);
+            showLatest(parseInt(r[0], 16) || 0);
             document.getElementById("lv-free").textContent = hexNum(r[1]);
             document.getElementById("lv-paid").textContent = hexNum(r[2]);
             document.getElementById("lv-open").textContent = parseInt(r[3], 16) ? "LIVE" : "SOON";
@@ -541,6 +553,48 @@
         }
         refreshLive();
         setInterval(refreshLive, 30000);
+
+
+        /* wallet mint */
+        var PRICE = { free: 200000000000000n, paid: 2000000000000000n };
+        var SEL = { free: "0xa4146733", paid: "0x26c7f77c" };
+        function qtyOf(k) { var o = document.querySelector('[data-qty="' + k + '"] output'); return parseInt(o ? o.textContent : "1", 10) || 1; }
+        async function ensureBsc() {
+          try { await ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x38" }] }); }
+          catch (e) { if (e.code === 4902) await ethereum.request({ method: "wallet_addEthereumChain", params: [{ chainId: "0x38", chainName: "BNB Smart Chain", nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 }, rpcUrls: ["https://bsc-dataseed.bnbchain.org"], blockExplorerUrls: ["https://bscscan.com"] }] }); else throw e; }
+        }
+        document.querySelectorAll("[data-mint]").forEach(function (btn) {
+          btn.addEventListener("click", async function () {
+            var k = btn.getAttribute("data-mint"), m = document.querySelector('[data-mint-msg="' + k + '"]');
+            m.className = "x-msg";
+            if (!window.ethereum) { m.className = "x-msg is-err"; m.textContent = "No wallet found. Open rifera.org in your wallet app's browser."; return; }
+            try {
+              btn.disabled = true; m.textContent = "Connecting wallet…";
+              var acct = (await ethereum.request({ method: "eth_requestAccounts" }))[0];
+              await ensureBsc();
+              var n = qtyOf(k), value = "0x" + (PRICE[k] * BigInt(n)).toString(16);
+              m.textContent = "Confirm " + n + " mint" + (n > 1 ? "s" : "") + " in your wallet…";
+              var tx = await ethereum.request({ method: "eth_sendTransaction", params: [{ from: acct, to: CONTRACT, value: value, data: SEL[k] + pad(n.toString(16)) }] });
+              m.innerHTML = 'Sent. <a href="https://bscscan.com/tx/' + tx + '" target="_blank" rel="noopener">View tx ↗</a>';
+              setTimeout(function () { refreshLive(); }, 8000);
+            } catch (e) {
+              m.className = "x-msg is-err";
+              var t = (e && (e.data && e.data.message || e.message)) || "Mint failed";
+              m.textContent = /Mint closed/.test(t) ? "Mint is not open yet." : /Wallet limit/.test(t) ? "Wallet limit reached." : /sold out/.test(t) ? "Sold out." : (e.code === 4001 ? "Cancelled." : t.slice(0, 120));
+            } finally { btn.disabled = false; }
+          });
+        });
+
+        /* latest mints */
+        function showLatest(total) {
+          var grid = document.getElementById("live-grid"), empty = document.getElementById("live-empty");
+          if (!total) { grid.hidden = true; empty.hidden = false; return; }
+          var html = "";
+          for (var id = total; id > Math.max(0, total - 12); id--) {
+            html += '<figure><a href="https://element.market/assets/bsc/' + CONTRACT + '/' + id + '" target="_blank" rel="noopener"><img src="nft/images/' + id + '.png" alt="First Take #' + id + '" loading="lazy" /></a>#' + id + '</figure>';
+          }
+          grid.innerHTML = html; grid.hidden = false; empty.hidden = true;
+        }
 
         /* check wallet */
         var msg = document.getElementById("check-msg");
