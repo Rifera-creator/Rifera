@@ -1,0 +1,35 @@
+{
+  "name": "First Take #113",
+  "description": "A tiny pixel cursor that records everything. Gen-00 by RiferaScreen.",
+  "image": "https://rifera.org/nft/images/113.png",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Cloud"
+    },
+    {
+      "trait_type": "Body",
+      "value": "Lime"
+    },
+    {
+      "trait_type": "Cursor Style",
+      "value": "Chunky Click"
+    },
+    {
+      "trait_type": "Face",
+      "value": "Smirk"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Webcam Bubble"
+    },
+    {
+      "trait_type": "Effect",
+      "value": "Cinematic Tilt"
+    }
+  ]
+}
