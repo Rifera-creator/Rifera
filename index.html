@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>First Take NFT Mint · pixel cursor minds by RiferaScreen</title>
+    <link rel="icon" href="tier0.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Press+Start+2P&display=swap"
+    />
+    <link rel="stylesheet" href="hark.css" />
+    <link rel="stylesheet" href="hark-hero.css" />
+    <style>
+      :root {
+        --x-rec: #ff3b30;
+        --x-rec-ink: #111113;
+        --x-bg: #111113;
+        --x-panel: #19191c;
+        --x-panel-2: #212125;
+        --x-pixel: "Press Start 2P", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        --x-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        --x-mint: #a8e6cf;
+        --x-peach: #ffd3b6;
+        --x-sky: #a0d8ff;
+        --x-lilac: #cdb4ff;
+        --x-butter: #fff1a8;
+      }
+      html { color-scheme: dark !important; }
+      body { background: var(--x-bg); }
+      img.x-px, .x-px img { image-rendering: pixelated; image-rendering: crisp-edges; image-rendering: pixelated; }
+      .page { padding-block: 0 40px; gap: 0; }
+      .main { gap: 0; }
+
+      /* nav */
+      .x-nav {
+        position: sticky; top: 0; z-index: 30;
+        display: flex; align-items: center; gap: 12px 20px;
+        margin-inline: calc(var(--gutter) * -1);
+        padding: 10px var(--gutter);
+        background: color-mix(in srgb, var(--x-bg) 86%, transparent);
+        -webkit-backdrop-filter: var(--hark-blur); backdrop-filter: var(--hark-blur);
+        border-bottom: 1px solid var(--stroke-primary);
+      }
+      .x-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; min-height: var(--tap); }
+      .x-brand img { width: 30px; height: 30px; border-radius: 6px; }
+      .x-brand span { font: 400 12px/1 var(--x-pixel); letter-spacing: 0.02em; white-space: nowrap; }
+      .x-tc { display: inline-flex; align-items: center; gap: 6px; font: 400 var(--size-caption)/1 var(--x-mono); color: var(--text-secondary); white-space: nowrap; }
+      .x-tc::before, .x-rec::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--x-rec); animation: x-blink 1s steps(1) infinite; }
+      @keyframes x-blink { 50% { opacity: 0.15; } }
+      .x-links { display: flex; gap: 2px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+      .x-links::-webkit-scrollbar { display: none; }
+      .x-links a { display: flex; align-items: center; min-height: var(--tap); padding: 0 10px; font: var(--type-label); color: var(--text-secondary); text-decoration: none; white-space: nowrap; border-radius: 6px; }
+      .x-links a:hover { color: var(--text-primary); background: var(--hover-wash); }
+      @media (max-width: 860px) {
+        .x-nav { flex-wrap: wrap; padding-bottom: 4px; }
+        .x-links { order: 3; flex-basis: 100%; margin-left: -10px; }
+      }
+      @media (max-width: 420px) { .x-tc { display: none; } }
+
+      /* shared */
+      .x-sec { padding-block: clamp(48px, 8vw, 88px) 0; scroll-margin-top: 110px; display: grid; gap: 24px; }
+      .x-eyebrow { font: 400 12px/1.6 var(--x-pixel); color: var(--x-rec); letter-spacing: 0.04em; text-transform: uppercase; }
+      .x-h2 { font: 400 clamp(18px, 3vw, 26px)/1.4 var(--x-pixel); margin: 0; }
+      .x-lede { font: var(--weight-regular) var(--size-prose)/1.5 var(--sans); color: var(--text-secondary); max-width: 62ch; }
+      .x-head { display: grid; gap: 14px; }
+      .x-card { background: var(--x-panel); border: 1px solid var(--stroke-primary); border-radius: var(--r-s); padding: 20px; display: grid; gap: 16px; align-content: start; min-width: 0; }
+      .x-btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        min-height: var(--tap); padding: 0 18px;
+        font: 400 12px/1.3 var(--x-pixel); text-transform: uppercase; text-decoration: none;
+        color: var(--text-primary); background: transparent;
+        border: 2px solid var(--text-primary); border-radius: 4px; box-shadow: 3px 3px 0 var(--stroke-primary);
+        cursor: pointer; transition: transform var(--dur-quick) var(--ease-out);
+      }
+      .x-btn:hover { transform: translate(-1px, -1px); }
+      .x-btn:active { transform: translate(2px, 2px); box-shadow: none; }
+      .x-btn--rec { background: var(--x-rec); border-color: var(--x-rec); color: var(--x-rec-ink); box-shadow: 3px 3px 0 #7a1a15; }
+      .x-btn--full { width: 100%; }
+      .x-row { display: flex; flex-wrap: wrap; gap: 12px; }
+      .x-code { font: 400 var(--size-small)/1.4 var(--x-mono); color: var(--x-mint); overflow-wrap: anywhere; }
+      .x-soon { font: 400 var(--size-caption)/1.4 var(--x-mono); color: var(--text-secondary); }
+      .x-soon b { color: var(--x-butter); font-weight: 400; border: 1px dashed currentColor; padding: 1px 6px; border-radius: 4px; }
+
+      /* hero */
+      .x-hero { display: grid; gap: 32px; align-items: center; padding-top: clamp(32px, 6vw, 72px); }
+      @media (min-width: 900px) { .x-hero { grid-template-columns: 1.05fr 1fr; } }
+      .x-hero__copy { display: grid; gap: 20px; }
+      .x-hero h1 { font: 400 clamp(30px, 6vw, 56px)/1.25 var(--x-pixel); margin: 0; }
+      .x-hero h1 em { font-style: normal; color: var(--x-rec); }
+      .x-count { font: 400 clamp(14px, 2vw, 18px)/1.4 var(--x-pixel); }
+      .x-count small { font: inherit; color: var(--text-secondary); font-size: 12px; }
+      .x-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+      .x-stat { border: 1px dashed var(--stroke-primary); border-radius: 6px; padding: 10px 12px; display: grid; gap: 6px; }
+      .x-stat span:first-child { font: 400 12px/1.4 var(--x-pixel); color: var(--text-secondary); }
+      .x-stat span:last-child { font: 400 var(--size-small)/1 var(--x-mono); }
+      @media (max-width: 480px) { .x-stats { grid-template-columns: 1fr; } }
+      .x-plate { margin: 0; display: grid; gap: 10px; }
+      .x-plate img { width: 100%; border-radius: var(--r-s); border: 1px solid var(--stroke-primary); background: var(--x-panel); }
+      .x-plate figcaption { font: 400 var(--size-caption)/1.4 var(--x-mono); color: var(--text-secondary); }
+
+      /* mint */
+      .x-grid3 { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+      .x-card h3 { font: 400 13px/1.4 var(--x-pixel); margin: 0; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+      .x-tag { font: 400 12px/1.4 var(--x-pixel); padding: 4px 6px; border-radius: 4px; color: var(--x-bg); white-space: nowrap; }
+      .x-price { font: 400 clamp(18px, 2.4vw, 22px)/1.3 var(--x-pixel); }
+      .x-price small { display: block; margin-top: 8px; font: var(--type-small); color: var(--text-secondary); }
+      .x-kv { margin: 0; display: grid; gap: 0; }
+      .x-kv div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--stroke-secondary); }
+      .x-kv dt { font: var(--type-small); color: var(--text-secondary); }
+      .x-kv dd { margin: 0; font: 400 var(--size-small)/1.4 var(--x-mono); text-align: right; }
+      .x-qty { display: flex; align-items: center; gap: 8px; }
+      .x-qty button { width: var(--tap); height: var(--tap); border: 1px solid var(--stroke-primary); background: var(--x-panel-2); color: var(--text-primary); border-radius: 4px; font: 400 14px/1 var(--x-pixel); cursor: pointer; }
+      .x-qty button:disabled { opacity: 0.35; cursor: default; }
+      .x-qty output { min-width: 40px; text-align: center; font: 400 16px/1 var(--x-pixel); }
+      .x-qty .x-total { margin-left: auto; font: 400 var(--size-small)/1.3 var(--x-mono); color: var(--text-secondary); text-align: right; }
+      .x-fuse { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; background: var(--x-panel-2); border-radius: 8px; flex-wrap: wrap; }
+      .x-fuse img { width: 52px; height: 52px; border-radius: 4px; }
+      .x-fuse .x-out { width: 72px; height: 72px; outline: 2px solid var(--x-butter); outline-offset: 2px; }
+      .x-fuse span { font: 400 14px/1 var(--x-pixel); color: var(--text-secondary); padding-inline: 4px; }
+      .x-fuse-cap { font: 400 12px/1.4 var(--x-pixel); text-align: center; color: var(--x-butter); }
+      .x-ids { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+      .x-input { width: 100%; min-height: var(--tap); padding: 0 12px; background: var(--x-bg); border: 1px solid var(--stroke-primary); border-radius: 4px; color: var(--text-primary); font: 400 var(--size-small)/1 var(--x-mono); }
+      .x-input:focus { outline: 2px solid var(--x-rec); outline-offset: 1px; }
+      .x-text { font: var(--weight-regular) var(--size-body)/1.5 var(--sans); color: var(--text-secondary); }
+
+      /* agent */
+      .x-split { display: grid; gap: 16px; align-items: start; }
+      @media (min-width: 900px) { .x-split { grid-template-columns: 1.6fr 1fr; } }
+      .x-table td code, .x-table th code { font: 400 var(--size-small)/1.4 var(--x-mono); color: var(--x-mint); }
+      .x-result { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .x-result div { background: var(--x-panel-2); border-radius: 6px; padding: 12px; display: grid; gap: 8px; }
+      .x-result span:first-child { font: var(--type-caption); color: var(--text-secondary); }
+      .x-result span:last-child { font: 400 16px/1 var(--x-pixel); }
+      .x-msg { font: var(--type-caption); color: var(--text-secondary); min-height: 1.3em; }
+      .x-msg.is-err { color: var(--x-rec); }
+
+      /* tiers */
+      .x-tiers { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+      .x-tier { background: var(--x-panel); border: 1px solid var(--stroke-primary); border-radius: var(--r-s); overflow: hidden; display: grid; align-content: start; }
+      .x-tier img { width: 100%; aspect-ratio: 1; object-fit: cover; border-bottom: 3px solid var(--x-c); }
+      .x-tier div { padding: 14px 16px 18px; display: grid; gap: 8px; }
+      .x-tier h3 { font: 400 12px/1.4 var(--x-pixel); margin: 0; color: var(--x-c); display: flex; justify-content: space-between; }
+      .x-tier p { font: var(--type-small); color: var(--text-secondary); }
+      .x-traits { margin: 0; display: grid; gap: 0 32px; }
+      @media (min-width: 760px) { .x-traits { grid-template-columns: 1fr 1fr; } }
+      .x-traits div { display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid var(--stroke-secondary); }
+      .x-traits dt { font: 400 12px/1.6 var(--x-pixel); color: var(--text-secondary); text-transform: uppercase; }
+      .x-traits dd { margin: 0; font: var(--type-small); }
+
+      /* live, market */
+      .x-empty { border: 1px dashed var(--stroke-primary); border-radius: var(--r-s); padding: clamp(32px, 6vw, 56px) 20px; display: grid; justify-items: center; gap: 14px; text-align: center; }
+      .x-empty p:first-child { font: 400 clamp(14px, 2vw, 18px)/1.5 var(--x-pixel); }
+      .x-rec { display: inline-flex; align-items: center; gap: 8px; font: 400 12px/1.3 var(--x-pixel); color: var(--x-rec); }
+      .x-market { display: grid; gap: 20px; }
+      @media (min-width: 760px) { .x-market { grid-template-columns: 1fr auto; align-items: center; } }
+
+      /* faq */
+      .x-faq { display: grid; border-top: 1px solid var(--stroke-primary); }
+      .x-faq details { border-bottom: 1px solid var(--stroke-primary); }
+      .x-faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 56px; padding: 12px 0; font: 400 12px/1.6 var(--x-pixel); }
+      .x-faq summary::-webkit-details-marker { display: none; }
+      .x-faq summary::after { content: "+"; font: 400 14px/1 var(--x-pixel); color: var(--x-rec); flex: none; }
+      .x-faq details[open] summary::after { content: "−"; }
+      .x-faq details p { padding: 0 0 18px; max-width: 70ch; font: var(--weight-regular) var(--size-body)/1.55 var(--sans); color: var(--text-secondary); }
+
+      /* footer */
+      .x-foot { margin-top: clamp(56px, 8vw, 96px); padding-top: 24px; border-top: 1px solid var(--stroke-primary); display: flex; flex-wrap: wrap; gap: 16px 24px; justify-content: space-between; align-items: center; }
+      .x-foot p { font: 400 12px/1.8 var(--x-pixel); color: var(--text-secondary); }
+      .x-foot nav { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+      .x-foot a { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tap); min-width: var(--tap); font: var(--type-label); color: var(--text-primary); }
+
+      @media (prefers-reduced-motion: reduce) {
+        .x-tc::before, .x-rec::before { animation: none; }
+        .x-btn { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page" id="top">
+      <header class="x-nav">
+        <a class="x-brand" href="#top" aria-label="First Take, back to top"
+          ><img class="x-px" src="tier0.png" alt="" /><span>FIRST TAKE</span></a
+        >
+        <span class="x-tc" aria-hidden="true">rec <span id="tc">00:00</span></span>
+        <nav class="x-links" aria-label="Sections">
+          <a href="#mint">Mint</a>
+          <a href="#fusion">Fusion</a>
+          <a href="#agent">Agent</a>
+          <a href="#tiers">Tiers</a>
+          <a href="#market">Market</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </header>
+
+      <main class="main">
+        <section class="x-hero" aria-labelledby="hero-title">
+          <div class="x-hero__copy">
+            <p class="x-eyebrow">Gen-00 · Pixel cursors · BNB Chain · ERC-721 · 24×24</p>
+            <h1 id="hero-title">First <em>Take.</em></h1>
+            <p class="x-lede">Tiny pixel cursors that record everything. Mint for 0.0002 BNB, mint for $1.50, or fuse three into one rarer take. Your AI agent mints for you with one on-chain call.</p>
+            <p class="x-count">— / 3,333 <small>MINTED</small></p>
+            <div class="x-row">
+              <a class="x-btn x-btn--rec" href="#mint">Claim your First Take</a>
+              <a class="x-btn" href="#fusion">Fuse my Takes</a>
+            </div>
+            <div class="x-stats">
+              <div class="x-stat"><span>CHEAP MINT</span><span>— / 1,111</span></div>
+              <div class="x-stat"><span>PAID $1.50</span><span>— / 2,222</span></div>
+              <div class="x-stat"><span>FUSIONS</span><span>—</span></div>
+            </div>
+          </div>
+          <figure class="x-plate">
+            <img class="x-px" src="hero_grid.png" alt="A grid of twelve pixel-art cursor characters, the First Take collection" />
+            <figcaption>Twelve takes · Plate I · 24×24 px · Gen-00</figcaption>
+          </figure>
+        </section>
+
+        <section class="x-sec" id="mint" aria-labelledby="mint-title">
+          <div class="x-head">
+            <p class="x-eyebrow">No. 01 — Mint</p>
+            <h2 class="x-h2" id="mint-title">No wallet connect. Your agent mints.</h2>
+            <p class="x-lede">Copy a prompt into Binance Agentic Wallet, or any agent that can send a BNB Chain transaction.</p>
+          </div>
+          <div class="x-grid3">
+            <article class="x-card">
+              <h3><span>Cheap mint</span><span class="x-tag" style="background: var(--x-mint)">1,111</span></h3>
+              <p class="x-price">0.0002 BNB<small>per NFT + gas</small></p>
+              <dl class="x-kv">
+                <div><dt>Supply</dt><dd>1,111</dd></div>
+                <div><dt>Max / wallet</dt><dd>7</dd></div>
+                <div><dt>Function</dt><dd class="x-code">mintFree(uint256 quantity)</dd></div>
+              </dl>
+              <div class="x-qty" data-qty="free" data-max="7">
+                <button type="button" data-step="-1" aria-label="Fewer">−</button>
+                <output aria-live="polite">1</output>
+                <button type="button" data-step="1" aria-label="More">+</button>
+                <span class="x-total"></span>
+              </div>
+              <button class="x-btn x-btn--rec x-btn--full" type="button" data-copy="free">COPY PROMPT</button>
+              <p class="x-soon">Contract: <b>coming soon</b></p>
+            </article>
+
+            <article class="x-card">
+              <h3><span>$1.50 mint</span><span class="x-tag" style="background: var(--x-sky)">2,222</span></h3>
+              <p class="x-price">$1.50 <span style="font-size: max(12px, 0.6em)">BNB</span><small>$1.50 of BNB per NFT, priced live on-chain by the Chainlink BNB/USD oracle. Overpay refunded automatically.</small></p>
+              <dl class="x-kv">
+                <div><dt>Supply</dt><dd>2,222</dd></div>
+                <div><dt>Max / wallet</dt><dd>20</dd></div>
+                <div><dt>Function</dt><dd class="x-code">mintPaid(uint256 quantity)</dd></div>
+                <div><dt>Value</dt><dd class="x-code">priceFor(N)</dd></div>
+              </dl>
+              <div class="x-qty" data-qty="paid" data-max="20">
+                <button type="button" data-step="-1" aria-label="Fewer">−</button>
+                <output aria-live="polite">1</output>
+                <button type="button" data-step="1" aria-label="More">+</button>
+                <span class="x-total"></span>
+              </div>
+              <button class="x-btn x-btn--rec x-btn--full" type="button" data-copy="paid">COPY PROMPT</button>
+              <p class="x-soon">Contract: <b>coming soon</b></p>
+            </article>
+
+            <article class="x-card" id="fusion" style="scroll-margin-top: 110px">
+              <h3><span>Fusion</span><span class="x-tag" style="background: var(--x-lilac)">3 → 1 · gas only</span></h3>
+              <div>
+                <div class="x-fuse x-px" aria-label="Three Rare takes become one Epic take" role="img">
+                  <img src="tier2.png" alt="" /><img src="tier2.png" alt="" /><img src="tier2.png" alt="" />
+                  <span>→</span>
+                  <img class="x-out" src="tier3.png" alt="" />
+                </div>
+              </div>
+              <p class="x-fuse-cap">3 × RARE → 1 × EPIC</p>
+              <p class="x-text">Burn 3 First Takes of the same tier, get 1 new one tier up: Common → Uncommon → Rare → Epic → Legendary.</p>
+              <dl class="x-kv">
+                <div><dt>Function</dt><dd class="x-code">fuse(uint256[3] ids)</dd></div>
+              </dl>
+              <div class="x-ids">
+                <input class="x-input" id="fid1" inputmode="numeric" placeholder="ID 1" aria-label="Token ID 1" />
+                <input class="x-input" id="fid2" inputmode="numeric" placeholder="ID 2" aria-label="Token ID 2" />
+                <input class="x-input" id="fid3" inputmode="numeric" placeholder="ID 3" aria-label="Token ID 3" />
+              </div>
+              <button class="x-btn x-btn--rec x-btn--full" type="button" data-copy="fuse">COPY PROMPT</button>
+              <p class="x-soon">Contract: <b>coming soon</b></p>
+            </article>
+          </div>
+        </section>
+
+        <section class="x-sec" id="agent" aria-labelledby="agent-title">
+          <div class="x-head">
+            <p class="x-eyebrow">No. 02 — Agent</p>
+            <h2 class="x-h2" id="agent-title">Manual parameters</h2>
+            <p class="x-lede">For agents that would rather read raw parameters than a prompt.</p>
+          </div>
+          <div class="x-split">
+            <div class="table-wrap x-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Parameter</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Network</th><td>BNB Chain (56)</td><td class="muted">Info</td></tr>
+                  <tr><th scope="row">Contract</th><td><span class="chip">Coming soon</span></td><td class="muted">Not deployed yet</td></tr>
+                  <tr><th scope="row"><code>mintFree(uint256)</code></th><td>value = 0.0002 BNB × N</td><td class="muted">Write</td></tr>
+                  <tr><th scope="row"><code>mintPaid(uint256)</code></th><td>value = priceFor(N)</td><td class="muted">Write</td></tr>
+                  <tr><th scope="row"><code>priceFor(uint256)</code></th><td>BNB price for N mints</td><td class="muted">Read</td></tr>
+                  <tr><th scope="row"><code>fuse(uint256[3])</code></th><td>value 0</td><td class="muted">Write</td></tr>
+                  <tr><th scope="row"><code>tierOf(uint256)</code></th><td>0..4 (Common..Legendary)</td><td class="muted">Read</td></tr>
+                  <tr><th scope="row"><code>freeMinted()</code></th><td>Cheap mints so far</td><td class="muted">Read</td></tr>
+                  <tr><th scope="row"><code>paidMinted()</code></th><td>$1.50 mints so far</td><td class="muted">Read</td></tr>
+                  <tr><th scope="row"><code>totalMinted()</code></th><td>All mints so far</td><td class="muted">Read</td></tr>
+                  <tr><th scope="row"><code>fusions()</code></th><td>Fusions so far</td><td class="muted">Read</td></tr>
+                  <tr><th scope="row">Creator fee</th><td>5% · EIP-2981 royalty</td><td class="muted">On-chain</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <form class="x-card" id="check" novalidate>
+              <h3>Check wallet</h3>
+              <label class="x-text" for="wallet">Wallet address</label>
+              <input class="x-input" id="wallet" autocomplete="off" spellcheck="false" placeholder="0x…" />
+              <button class="x-btn x-btn--rec x-btn--full" type="submit">CHECK</button>
+              <p class="x-msg" id="check-msg" aria-live="polite"></p>
+              <div class="x-result">
+                <div><span>Free left</span><span>—</span></div>
+                <div><span>Paid left</span><span>—</span></div>
+              </div>
+              <p class="x-soon">Live once the contract is deployed.</p>
+            </form>
+          </div>
+        </section>
+
+        <section class="x-sec" id="tiers" aria-labelledby="tiers-title">
+          <div class="x-head">
+            <p class="x-eyebrow">No. 03 — Tiers</p>
+            <h2 class="x-h2" id="tiers-title">The takes</h2>
+            <p class="x-lede">Tier is rolled on-chain at mint; fusion always gives the next tier.</p>
+          </div>
+          <div class="x-tiers">
+            <article class="x-tier" style="--x-c: var(--text-primary)">
+              <img class="x-px" src="tier0.png" alt="Common tier First Take card" />
+              <div><h3>Common <span>60%</span></h3><p>The everyday cursor.</p></div>
+            </article>
+            <article class="x-tier" style="--x-c: var(--x-mint)">
+              <img class="x-px" src="tier1.png" alt="Uncommon tier First Take card, wearing headphones" />
+              <div><h3>Uncommon <span>25%</span></h3><p>Always wearing an accessory.</p></div>
+            </article>
+            <article class="x-tier" style="--x-c: var(--x-sky)">
+              <img class="x-px" src="tier2.png" alt="Rare tier First Take card" />
+              <div><h3>Rare <span>10%</span></h3><p>Highlight ring and sparkle sky.</p></div>
+            </article>
+            <article class="x-tier" style="--x-c: var(--x-lilac)">
+              <img class="x-px" src="tier3.png" alt="Epic tier First Take card" />
+              <div><h3>Epic <span>4%</span></h3><p>Gold cursor, gold frame, webcam bubble.</p></div>
+            </article>
+            <article class="x-tier" style="--x-c: var(--x-butter)">
+              <img class="x-px" src="tier4.png" alt="Legendary tier First Take card" />
+              <div><h3>Legendary <span>1%</span></h3><p>Halo, REC light, Glitch Cosmos background.</p></div>
+            </article>
+          </div>
+          <dl class="x-traits">
+            <div><dt>Background</dt><dd>8 pastels · Legendary: Glitch Cosmos, Inferno</dd></div>
+            <div><dt>Body</dt><dd>White, Peach, Blue, Tan, Ghost, Rainbow</dd></div>
+            <div><dt>Cursor style</dt><dd>Arrow, Glowing Dot, Highlight Ring, Chunky Click</dd></div>
+            <div><dt>Face</dt><dd>Flat, Smile, Grin, Smirk, Tiny</dd></div>
+            <div><dt>Accessory</dt><dd>Headphones, Cap, Bowler Hat, Clapperboard, Webcam Bubble, Lightning, Heart, Crown</dd></div>
+            <div><dt>Effect</dt><dd>None, Cinematic Tilt, Auto-Zoom, REC Dot</dd></div>
+          </dl>
+        </section>
+
+        <section class="x-sec" id="live" aria-labelledby="live-title">
+          <div class="x-head">
+            <p class="x-eyebrow">No. 04 — Live</p>
+            <h2 class="x-h2" id="live-title">Latest mints</h2>
+          </div>
+          <div class="x-empty">
+            <p>Be the first take.</p>
+            <span class="x-rec">Waiting for mints</span>
+          </div>
+        </section>
+
+        <section class="x-sec" id="market" aria-labelledby="market-title">
+          <div class="x-head">
+            <p class="x-eyebrow">No. 05 — Market</p>
+          </div>
+          <div class="x-card x-market">
+            <div class="x-head">
+              <h2 class="x-h2" id="market-title">Opening soon.</h2>
+              <p class="x-text">First Take will trade on Element, BNB Chain, after mint. Creator fee 5% (EIP-2981 royalty, on-chain).</p>
+            </div>
+            <a class="x-btn" href="https://element.market/" target="_blank" rel="noopener">Element Market ↗</a>
+          </div>
+        </section>
+
+        <section class="x-sec" id="faq" aria-labelledby="faq-title">
+          <div class="x-head">
+            <p class="x-eyebrow">No. 06 — FAQ</p>
+            <h2 class="x-h2" id="faq-title">Questions</h2>
+          </div>
+          <div class="x-faq">
+            <details>
+              <summary>How many?</summary>
+              <p>3,333: 1,111 at 0.0002 BNB and 2,222 at $1.50. Fusion burns 3 and mints 1, so supply shrinks.</p>
+            </details>
+            <details>
+              <summary>Why no connect-wallet?</summary>
+              <p>Minting is agent-only. Copy a prompt or the manual parameters into an agent that can send a BNB Chain transaction.</p>
+            </details>
+            <details>
+              <summary>What does the cheap mint cost?</summary>
+              <p>0.0002 BNB per NFT plus gas, max 7 per wallet.</p>
+            </details>
+            <details>
+              <summary>How does the $1.50 mint work?</summary>
+              <p>$1.50 of BNB per NFT, max 20 per wallet. The price follows Chainlink BNB/USD on-chain; your agent reads priceFor(N) and sends that value. Overpay is refunded.</p>
+            </details>
+            <details>
+              <summary>Why did my mint fail?</summary>
+              <p>Usually one of three: the value sent was wrong, the per-wallet limit was reached, or the three takes in a fusion are not the same tier.</p>
+            </details>
+            <details>
+              <summary>What's the link to RiferaScreen?</summary>
+              <p>Every First Take is a cursor from the RiferaScreen recorder, the app that zooms, frames and polishes every take automatically.</p>
+            </details>
+            <details>
+              <summary>Will it go up in value?</summary>
+              <p>No promises. It is collectible pixel art, not an investment.</p>
+            </details>
+          </div>
+        </section>
+      </main>
+
+      <footer class="x-foot">
+        <p>FIRST TAKE · BNB CHAIN · CREATOR FEE 5% · Contract: coming soon</p>
+        <nav aria-label="Links">
+          <a href="https://x.com/RIFERAxz" target="_blank" rel="noopener">X</a>
+          <a href="https://x.com/rifera_io" target="_blank" rel="noopener">built by&nbsp;@rifera_io</a>
+          <a href="mailto:yonshu492@gmail.com">Email</a>
+        </nav>
+      </footer>
+    </div>
+    <script src="hark.js"></script>
+    <script>
+      (function () {
+        var CONTRACT = "[CONTRACT — coming soon]";
+
+        /* timecode */
+        var tc = document.getElementById("tc"), start = Date.now();
+        function pad(n) { return (n < 10 ? "0" : "") + n; }
+        setInterval(function () {
+          var s = Math.floor((Date.now() - start) / 1000);
+          tc.textContent = pad(Math.floor(s / 60)) + ":" + pad(s % 60);
+        }, 1000);
+
+        /* quantity */
+        var qty = { free: 1, paid: 1 };
+        function bnb(n) { return String(+(0.0002 * n).toFixed(4)); }
+        function renderQty() {
+          [].forEach.call(document.querySelectorAll("[data-qty]"), function (box) {
+            var key = box.getAttribute("data-qty"), max = +box.getAttribute("data-max"), n = qty[key];
+            box.querySelector("output").textContent = n;
+            box.querySelector('[data-step="-1"]').disabled = n <= 1;
+            box.querySelector('[data-step="1"]').disabled = n >= max;
+            box.querySelector(".x-total").textContent = key === "free"
+              ? bnb(n) + " BNB + gas"
+              : "$" + (1.5 * n).toFixed(2) + " of BNB";
+          });
+        }
+        document.addEventListener("click", function (e) {
+          var b = e.target.closest("[data-step]");
+          if (!b) return;
+          var box = b.closest("[data-qty]"), key = box.getAttribute("data-qty"), max = +box.getAttribute("data-max");
+          qty[key] = Math.min(max, Math.max(1, qty[key] + +b.getAttribute("data-step")));
+          renderQty();
+        });
+
+        /* prompts */
+        function prompt(kind) {
+          if (kind === "free") {
+            var n = qty.free;
+            return "Mint " + n + " First Take NFT" + (n > 1 ? "s" : "") + " on BNB Chain: call mintFree(" + n + ") on contract " + CONTRACT + " with value " + bnb(n) + " BNB.";
+          }
+          if (kind === "paid") {
+            var m = qty.paid;
+            return "Mint " + m + " First Take NFT" + (m > 1 ? "s" : "") + " on BNB Chain: read priceFor(" + m + ") on contract " + CONTRACT + ", then call mintPaid(" + m + ") with exactly that value in BNB ($1.50 per NFT, priced by Chainlink BNB/USD). Any overpay is refunded automatically.";
+          }
+          var ids = ["fid1", "fid2", "fid3"].map(function (id, i) {
+            var v = document.getElementById(id).value.replace(/\D/g, "");
+            return v || "<token ID " + (i + 1) + ">";
+          });
+          return "Fuse 3 First Take NFTs on BNB Chain: call fuse([" + ids.join(", ") + "]) on contract " + CONTRACT + " with value 0. All three must be the same tier; I get 1 new First Take one tier up.";
+        }
+        function copyText(text) {
+          if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text).catch(function () { fallback(text); });
+          fallback(text);
+          return Promise.resolve();
+        }
+        function fallback(text) {
+          var ta = document.createElement("textarea");
+          ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand("copy"); } catch (err) {}
+          document.body.removeChild(ta);
+        }
+        [].forEach.call(document.querySelectorAll("[data-copy]"), function (btn) {
+          var label = btn.textContent;
+          btn.addEventListener("click", function () {
+            var text = prompt(btn.getAttribute("data-copy"));
+            btn.textContent = "Copied!";
+            btn.setAttribute("aria-live", "polite");
+            clearTimeout(btn._t);
+            btn._t = setTimeout(function () { btn.textContent = label; }, 1600);
+            try { copyText(text); } catch (err) { fallback(text); }
+          });
+        });
+
+        /* check wallet */
+        var msg = document.getElementById("check-msg");
+        document.getElementById("check").addEventListener("submit", function (e) {
+          e.preventDefault();
+          var v = document.getElementById("wallet").value.trim();
+          if (!/^0x[0-9a-fA-F]{40}$/.test(v)) {
+            msg.className = "x-msg is-err";
+            msg.textContent = "Enter a valid 0x address (42 characters).";
+            return;
+          }
+          msg.className = "x-msg";
+          msg.textContent = "Contract not deployed yet, so limits show —.";
+        });
+
+        renderQty();
+      })();
+    </script>
+  </body>
+</html>
