@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>First Take · Owner</title>
+<style>body{background:#16161c;color:#eee;font-family:ui-monospace,Menlo,monospace;max-width:520px;margin:40px auto;padding:0 16px}h1{font-size:22px}h1 span{color:#ff3b30}
+button{display:block;margin-top:14px;width:100%;padding:14px;background:#ff3b30;color:#111;border:0;border-radius:6px;font:inherit;font-weight:700;cursor:pointer}button.s{background:#33333d;color:#eee}
+#st{margin-top:10px;font-size:14px}#log{margin-top:18px;white-space:pre-wrap;font-size:13px;background:#0e0e12;padding:12px;border-radius:6px;min-height:60px}a{color:#7cc4ff}</style></head><body>
+<h1><span>&#9679;</span> First Take · Owner</h1>
+<p style="color:#aaa;font-size:13px">Owner-only controls. Only the wallet that deployed the contract can use these.</p>
+<div id="st">Mint status: …</div>
+<button id="open">OPEN MINT (go live)</button>
+<button id="close" class="s">Close mint</button>
+<button id="wd" class="s">Withdraw BNB to owner</button>
+<div id="log">Ready.</div>
+<script>
+const C="0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f";
+const log=m=>{document.getElementById('log').textContent+="\n"+m};
+async function rpc(d){for(const u of["https://bsc-dataseed1.bnbchain.org","https://bsc-rpc.publicnode.com","https://1rpc.io/bnb"]){try{const r=await(await fetch(u,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_call",params:[{to:C,data:d},"latest"]})})).json();if(r.result)return r.result}catch(e){}}}
+async function status(){const r=await rpc("0x24bbd049");document.getElementById('st').textContent="Mint status: "+(r?(parseInt(r,16)?"LIVE ✔":"CLOSED"):"unknown");}
+status();
+async function send(data,label){
+ try{
+  if(!window.ethereum){log("No wallet found. Open this page in your wallet app's browser.");return;}
+  const [a]=await ethereum.request({method:'eth_requestAccounts'});
+  try{await ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x38'}]})}catch(e){if(e.code===4902)await ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0x38',chainName:'BNB Smart Chain',nativeCurrency:{name:'BNB',symbol:'BNB',decimals:18},rpcUrls:['https://bsc-dataseed.bnbchain.org'],blockExplorerUrls:['https://bscscan.com']}]});else throw e;}
+  log(label+": confirm in your wallet…");
+  const tx=await ethereum.request({method:'eth_sendTransaction',params:[{from:a,to:C,data}]});
+  log("Sent: https://bscscan.com/tx/"+tx+"\nWaiting…");
+  let r=null;while(!r){await new Promise(s=>setTimeout(s,3000));r=await ethereum.request({method:'eth_getTransactionReceipt',params:[tx]});}
+  log(r.status==="0x1"?label+" done ✔":label+" failed (are you the owner wallet?)");status();
+ }catch(e){log("Error: "+(e.message||e));}
+}
+const P="000000000000000000000000000000000000000000000000000000000000000";
+document.getElementById('open').onclick=()=>send("0xf8004d31"+P+"1","Open mint");
+document.getElementById('close').onclick=()=>send("0xf8004d31"+P+"0","Close mint");
+document.getElementById('wd').onclick=()=>send("0x3ccfd60b","Withdraw");
+</script></body></html>
