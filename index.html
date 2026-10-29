@@ -122,7 +122,7 @@ footer a{font-family:var(--mono);font-size:12px}
       <p class="count"><span id="lv-total">—</span> / 10,000 <small>MINTED</small></p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <a class="btn btn--accent" href="#mint">Claim your First Take</a>
-        <a class="btn" href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">Contract v1 ↗</a>
+        <a class="btn" href="https://bscscan.com/address/0x5e10b02c3763722f84d4cc78f416dd66fda24623" target="_blank" rel="noopener">View contract ↗</a>
       </div>
       <p class="msg" style="margin-top:14px">Artwork: the first 120 takes live in this repo (nft/images). Takes above #120 are drawn from the same trait set, so the collection can grow to 10,000.</p>
     </div>
@@ -157,7 +157,7 @@ footer a{font-family:var(--mono);font-size:12px}
     <p class="kicker">Article II · Mint</p>
     <h2 id="mint-title">Mint is live — on the new contract.</h2>
     <p class="lede">Any personal wallet on BNB Chain can mint — straight from this page, or through an AI agent's wallet. Calls from smart contracts are turned away on-chain. Max 2 takes per wallet.</p>
-    <div class="banner" id="mintBanner">Mint baru aktif setelah kontrak v2 di-deploy dan alamatnya dimasukkan ke situs ini. Sampai saat itu tombol mint di bawah nonaktif — ini sengaja, supaya tidak ada yang mengirim BNB ke aturan mint yang salah.</div>
+    <div class="banner" id="mintBanner">Mint is live on the new contract.</div>
     <div class="grid3" style="margin-top:16px">
       <article class="card">
         <h3>Minted</h3>
@@ -215,7 +215,7 @@ footer a{font-family:var(--mono);font-size:12px}
     <div class="card">
       <dl class="kv">
         <div><dt>Network</dt><dd>BNB Chain (56)</dd></div>
-        <div><dt>Contract v2</dt><dd class="code" id="contractState">[new Rifera v2 contract address — to be announced after deployment]</dd></div>
+        <div><dt>Contract v2</dt><dd class="code" id="contractState"><a href="https://bscscan.com/address/0x5e10b02c3763722f84d4cc78f416dd66fda24623" target="_blank" rel="noopener">0x5e10b02c3763722f84d4cc78f416dd66fda24623 ↗</a></dd></div>
         <div><dt>Contract v1 (lama)</dt><dd><a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f ↗</a></dd></div>
         <div><dt><span class="code">mint(uint256)</span></dt><dd>value = priceFor(quantity)</dd></div>
         <div><dt><span class="code">mint()</span></dt><dd>1 take, same fee rule</dd></div>
@@ -260,7 +260,7 @@ footer a{font-family:var(--mono);font-size:12px}
   </section>
 
   <footer>
-    <p>FIRST TAKE · BNB CHAIN · Contract v1: <a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f</a> · Contract v2: <span id="footContract">menunggu deploy</span></p>
+    <p>FIRST TAKE · BNB CHAIN · Contract v1: <a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f</a> · Contract v2: <a href="https://bscscan.com/address/0x5e10b02c3763722f84d4cc78f416dd66fda24623" target="_blank" rel="noopener">0x5e10…4623</a></p>
     <nav aria-label="Links">
       <a href="https://x.com/RIFERAxz" target="_blank" rel="noopener">X</a>
       <a href="https://x.com/0xnathan_ai" target="_blank" rel="noopener">build by&nbsp;@0xnathan_ai</a>
@@ -272,8 +272,8 @@ footer a{font-family:var(--mono);font-size:12px}
 <script>
 (function () {
   /* ---- v2 switch: replace CONTRACT with the deployed address and set MINT_PAUSED=false ---- */
-  var CONTRACT = "[new Rifera v2 contract address — to be announced after deployment]";
-  var MINT_PAUSED = true;
+  var CONTRACT = "0x5e10b02c3763722f84d4cc78f416dd66fda24623";
+  var MINT_PAUSED = false;
   var OLD_CONTRACT = "0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f";
   var MAX_SUPPLY = 10000, FREE_LIMIT = 200, FEE_LATE_WEI = 250000000000000n, MAX_PER_WALLET = 2;
 
@@ -351,7 +351,7 @@ footer a{font-family:var(--mono);font-size:12px}
   function refreshLive(){
     if (!isAddr(CONTRACT)) {
       document.getElementById("mintStatus").textContent = "Waiting for v2";
-      document.getElementById("mintBanner").textContent = "Mint baru aktif setelah kontrak v2 di-deploy dan alamatnya dimasukkan ke situs ini. Sampai saat itu tombol mint di bawah nonaktif — ini sengaja, supaya tidak ada yang mengirim BNB ke aturan mint yang salah.";
+      document.getElementById("mintBanner").textContent = "Mint is live on the new contract.";
       return;
     }
     Promise.all([rpcCall("0xa2309ff8"), rpcCall("0x24bbd049")]).then(function (r) {
