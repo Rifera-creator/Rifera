@@ -75,6 +75,12 @@ nav.main a:hover{color:var(--ink);border-bottom-color:var(--accent)}
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
 .gallery figure{margin:0;text-align:center;font-family:var(--mono);font-size:11px}
 .gallery img,.gallery canvas{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;border:1px solid var(--line-soft);image-rendering:pixelated;display:block;margin-bottom:6px}
+.gallery figure.tier-uncommon img,.gallery figure.tier-uncommon canvas{box-shadow:0 0 0 2px #a8e6cf,0 0 10px rgba(168,230,207,.6)}
+.gallery figure.tier-rare img,.gallery figure.tier-rare canvas{box-shadow:0 0 0 2px #a0d8ff,0 0 18px rgba(64,156,255,.55)}
+.gallery figure.tier-epic img,.gallery figure.tier-epic canvas{box-shadow:0 0 0 2px #cdb4ff,0 0 18px rgba(180,140,255,.6)}
+.gallery figure.tier-legendary img,.gallery figure.tier-legendary canvas{box-shadow:0 0 0 3px #facc15,0 0 24px rgba(250,204,21,.75);animation:leg-glow 1.6s ease-in-out infinite alternate}
+@keyframes leg-glow{from{box-shadow:0 0 0 3px #facc15,0 0 14px rgba(250,204,21,.5)}to{box-shadow:0 0 0 3px #facc15,0 0 30px rgba(250,204,21,.9)}}
+.tier-effect{font-family:var(--mono);font-size:11px;color:var(--muted)}
 .search{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .input{min-height:44px;padding:0 12px;background:#fff;border:1px solid var(--line);border-radius:4px;color:var(--ink);font-family:var(--mono);font-size:13px;flex:1;min-width:220px}
 .input:focus{outline:2px solid var(--accent);outline-offset:1px}
@@ -131,11 +137,11 @@ footer a{font-family:var(--mono);font-size:12px}
     <h2 id="takes-title">The world fits in one cursor.</h2>
     <p class="lede">Every First Take is one background, one body, one cursor style, one face, one accessory and one effect. Six traits, 79,200 possible combinations — more than enough for 10,000 takes, all from the same set you can already see in this repo's metadata.</p>
     <div class="tiers">
-      <article class="tier" style="--c:#1D1A16"><img src="tier0.png" alt="Common tier First Take card" /><div><h3>Common <span>60%</span></h3><p>The everyday cursor.</p></div></article>
-      <article class="tier" style="--c:#a8e6cf"><img src="tier1.png" alt="Uncommon tier First Take card, wearing headphones" /><div><h3>Uncommon <span>25%</span></h3><p>Always wearing an accessory.</p></div></article>
-      <article class="tier" style="--c:#a0d8ff"><img src="tier2.png" alt="Rare tier First Take card" /><div><h3>Rare <span>10%</span></h3><p>Highlight ring and sparkle sky.</p></div></article>
-      <article class="tier" style="--c:#cdb4ff"><img src="tier3.png" alt="Epic tier First Take card" /><div><h3>Epic <span>4%</span></h3><p>Gold cursor, gold frame, webcam bubble.</p></div></article>
-      <article class="tier" style="--c:#fff1a8"><img src="tier4.png" alt="Legendary tier First Take card" /><div><h3>Legendary <span>1%</span></h3><p>Halo, REC light, Glitch Cosmos background.</p></div></article>
+      <article class="tier" style="--c:#1D1A16"><img src="tier0.png" alt="Common tier First Take card" /><div><h3>Common <span>60%</span></h3><p>The everyday cursor. Efek: tanpa efek.</p></div></article>
+      <article class="tier" style="--c:#a8e6cf"><img src="tier1.png" alt="Uncommon tier First Take card, wearing headphones" /><div><h3>Uncommon <span>25%</span></h3><p>Always wearing an accessory. Efek: kilau mint halus.</p></div></article>
+      <article class="tier" style="--c:#a0d8ff"><img src="tier2.png" alt="Rare tier First Take card" /><div><h3>Rare <span>10%</span></h3><p>Highlight ring and sparkle sky. Efek: kilau biru + sparkle.</p></div></article>
+      <article class="tier" style="--c:#cdb4ff"><img src="tier3.png" alt="Epic tier First Take card" /><div><h3>Epic <span>4%</span></h3><p>Gold cursor, gold frame, webcam bubble. Efek: bingkai ungu bercahaya.</p></div></article>
+      <article class="tier" style="--c:#fff1a8"><img src="tier4.png" alt="Legendary tier First Take card" /><div><h3>Legendary <span>1%</span></h3><p>Halo, REC light, Glitch Cosmos background. Efek: halo emas berdenyut + REC.</p></div></article>
     </div>
     <dl class="traits">
       <div><dt>Background</dt><dd>Sky, Peach, Lavender, Lemon, Rose, Cloud, Mint, Sage, Sparkle Sky, Inferno</dd></div>
@@ -227,6 +233,7 @@ footer a{font-family:var(--mono);font-size:12px}
     <p class="kicker">Article IV · Gallery</p>
     <h2 id="gallery-title">10,000 takes.</h2>
     <p class="lede">Search by number, or load more. #1–#120 use the real artwork from this repo. Above #120, each take is drawn in your browser from its trait combination — background, body, cursor, face, accessory, effect — so every number up to 10,000 has its own form.</p>
+    <p class="tier-effect">Efek tier: Common = tanpa efek · Uncommon = kilau mint halus · Rare = kilau biru + sparkle · Epic = bingkai ungu bercahaya · Legendary = halo emas berdenyut + REC. Efek ini tampil di kartu galeri, kartu tier, dan gambar SVG yang disiapkan.</p>
     <div class="search">
       <input class="input" id="searchInput" inputmode="numeric" placeholder="Search take number, e.g. 4321" />
       <button class="btn" type="button" id="searchBtn">SEARCH</button>
@@ -433,7 +440,18 @@ footer a{font-family:var(--mono);font-size:12px}
     var eff = EFFS[n % 4];
     return { bg: bg, body: body, cursor: cursor, face: face, acc: acc, eff: eff };
   }
-  function drawTake(id, canvas){
+  var TIERS120 = "CCUCUCCCCCECCEUUCCUUUCCCCUUCCUCCCCRCUCCUCRUCCURUCCCUUUCCUCUUUCCCCERCUUCLCRURCUCCCCCCCCCERCCCCCCCUURRCUCCCRCCRCCCCEUCCRCC";
+  var TIER_NAME = { C:"Common", U:"Uncommon", R:"Rare", E:"Epic", L:"Legendary" };
+  function tierOf(id){
+    if (id <= 120) return TIER_NAME[TIERS120[id - 1]];
+    var r = (id * 2654435761) % 100;
+    if (r < 60) return "Common";
+    if (r < 85) return "Uncommon";
+    if (r < 95) return "Rare";
+    if (r < 99) return "Epic";
+    return "Legendary";
+  }
+  function drawTake(id, canvas, tier){
     var t = traitsOf(id), ctx = canvas.getContext("2d");
     ctx.imageSmoothingEnabled = false;
     ctx.fillStyle = BG_HEX[t.bg]; ctx.fillRect(0, 0, 24, 24);
@@ -455,11 +473,17 @@ footer a{font-family:var(--mono);font-size:12px}
     if (t.acc === "Clapperboard") { ctx.fillStyle = "#ffffff"; ctx.fillRect(16, 2, 6, 4); ctx.fillStyle = "#111113"; ctx.fillRect(16, 2, 2, 1); ctx.fillRect(20, 2, 2, 1); }
     if (t.eff === "REC Dot") { ctx.fillStyle = "#ff3b30"; ctx.beginPath(); ctx.arc(20, 20, 2, 0, 7); ctx.fill(); }
     if (t.eff === "Auto-Zoom") { ctx.strokeStyle = "#111113"; ctx.strokeRect(1, 1, 22, 22); }
+    if (tier === "Uncommon") { ctx.fillStyle = "#a8e6cf"; ctx.fillRect(1, 1, 2, 1); ctx.fillRect(21, 1, 2, 1); }
+    if (tier === "Rare") { ctx.fillStyle = "#ffffff"; ctx.fillRect(2, 2, 1, 1); ctx.fillRect(21, 3, 1, 1); ctx.fillRect(3, 21, 1, 1); ctx.fillStyle = "#60a5fa"; ctx.strokeStyle = "#60a5fa"; ctx.strokeRect(0, 0, 24, 24); }
+    if (tier === "Epic") { ctx.strokeStyle = "#a78bfa"; ctx.lineWidth = 2; ctx.strokeRect(1, 1, 22, 22); }
+    if (tier === "Legendary") { ctx.strokeStyle = "#facc15"; ctx.lineWidth = 2; ctx.strokeRect(1, 1, 22, 22); ctx.fillStyle = "#ff3b30"; ctx.beginPath(); ctx.arc(20, 20, 2, 0, 7); ctx.fill(); }
     return t;
   }
   var shown = 0, PAGE = 60;
   function cardFor(id){
     var fig = document.createElement("figure");
+    var tier = tierOf(id);
+    fig.className = "tier-" + tier.toLowerCase();
     var t = traitsOf(id);
     if (id <= 120) {
       var img = document.createElement("img");
@@ -467,11 +491,11 @@ footer a{font-family:var(--mono);font-size:12px}
       fig.appendChild(img);
     } else {
       var cv = document.createElement("canvas"); cv.width = 24; cv.height = 24;
-      drawTake(id, cv); fig.appendChild(cv);
+      drawTake(id, cv, tier); fig.appendChild(cv);
     }
     var cap = document.createElement("figcaption");
-    if (id <= 120) { cap.textContent = "#" + id; fig.title = "First Take #" + id + " — real artwork from GitHub (nft/images/" + id + ".png)"; }
-    else { cap.textContent = "#" + id + " · " + t.bg + " / " + t.body; fig.title = [t.bg, t.body, t.cursor, t.face, t.acc, t.eff].join(" · "); }
+    if (id <= 120) { cap.textContent = "#" + id + " · " + tier; fig.title = "First Take #" + id + " — " + tier + " — real artwork from GitHub (nft/images/" + id + ".png)"; }
+    else { cap.textContent = "#" + id + " · " + tier + " · " + t.bg + " / " + t.body; fig.title = tier + " · " + [t.bg, t.body, t.cursor, t.face, t.acc, t.eff].join(" · "); }
     fig.appendChild(cap);
     return fig;
   }
