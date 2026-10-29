@@ -216,7 +216,7 @@ footer a{font-family:var(--mono);font-size:12px}
       <dl class="kv">
         <div><dt>Network</dt><dd>BNB Chain (56)</dd></div>
         <div><dt>Contract v2</dt><dd class="code" id="contractState"><a href="https://bscscan.com/address/0x5e10b02c3763722f84d4cc78f416dd66fda24623" target="_blank" rel="noopener">0x5e10b02c3763722f84d4cc78f416dd66fda24623 ↗</a></dd></div>
-        <div><dt>Contract v1 (lama)</dt><dd><a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f ↗</a></dd></div>
+       
         <div><dt><span class="code">mint(uint256)</span></dt><dd>value = priceFor(quantity)</dd></div>
         <div><dt><span class="code">mint()</span></dt><dd>1 take, same fee rule</dd></div>
         <div><dt><span class="code">priceFor(uint256)</span></dt><dd>BNB fee for N next mints</dd></div>
@@ -253,14 +253,14 @@ footer a{font-family:var(--mono);font-size:12px}
       <details><summary>How do I mint?</summary><p>Tap CONNECT WALLET then MINT on this page (MetaMask, Trust, OKX or any BNB Chain wallet), or copy the agent prompt into an AI agent wallet.</p></details>
       <details><summary>What if my mint crosses 200?</summary><p>Example: if 199 are minted and you mint 2, you pay 0 for #200 and 0.00025 BNB for #201 — 0.00025 BNB in total. The contract calculates it with priceFor(quantity).</p></details>
       <details><summary>Why did my mint fail?</summary><p>Usually one of four: the value sent was wrong, the 2-per-wallet limit was reached, the collection sold out, or mint is not open yet.</p></details>
-      <details><summary>What about the old contract?</summary><p>The old contract (0xa69a…d60f, 120 supply, 0.0002 / 0.002 BNB) is superseded by v2 for this site. It still exists on-chain, but this site no longer mints on it once v2 is live.</p></details>
+     
       <details><summary>What's the link to RiferaScreen?</summary><p>Every First Take is a cursor from the RiferaScreen recorder, the app that zooms, frames and polishes every take automatically.</p></details>
       <details><summary>Will it go up in value?</summary><p>No promises. It is collectible pixel art, not an investment.</p></details>
     </div>
   </section>
 
   <footer>
-    <p>FIRST TAKE · BNB CHAIN · Contract v1: <a href="https://bscscan.com/address/0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f" target="_blank" rel="noopener">0xa69a…d60f</a> · Contract v2: <a href="https://bscscan.com/address/0x5e10b02c3763722f84d4cc78f416dd66fda24623" target="_blank" rel="noopener">0x5e10…4623</a></p>
+    <p>FIRST TAKE · BNB CHAIN · Contract: <a href="https://bscscan.com/address/0x5e10b02c3763722f84d4cc78f416dd66fda24623" target="_blank" rel="noopener">0x5e10…4623</a></p>
     <nav aria-label="Links">
       <a href="https://x.com/RIFERAxz" target="_blank" rel="noopener">X</a>
       <a href="https://x.com/0xnathan_ai" target="_blank" rel="noopener">build by&nbsp;@0xnathan_ai</a>
@@ -274,7 +274,7 @@ footer a{font-family:var(--mono);font-size:12px}
   /* ---- v2 switch: replace CONTRACT with the deployed address and set MINT_PAUSED=false ---- */
   var CONTRACT = "0x5e10b02c3763722f84d4cc78f416dd66fda24623";
   var MINT_PAUSED = false;
-  var OLD_CONTRACT = "0xa69ac1da9dd7edfd6b46590de15e36aa6f85d60f";
+ 
   var MAX_SUPPLY = 10000, FREE_LIMIT = 200, FEE_LATE_WEI = 250000000000000n, MAX_PER_WALLET = 2;
 
   function isAddr(a){ return /^0x[0-9a-fA-F]{40}$/.test(a); }
@@ -337,7 +337,7 @@ footer a{font-family:var(--mono);font-size:12px}
     });
   });
 
-  /* ---- live chain reads (v2 only; old contract uses different mint functions) ---- */
+  /* ---- live chain reads (v2 only) ---- */
   var RPCS = ["https://bsc-dataseed1.bnbchain.org", "https://bsc-rpc.publicnode.com", "https://1rpc.io/bnb", "https://bsc-dataseed.bnbchain.org"];
   function rpcCall(data, i){
     i = i || 0;
